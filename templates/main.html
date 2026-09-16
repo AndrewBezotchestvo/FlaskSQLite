@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<div class="notes">
+    {% for note in notes %}
+        <div class="note">
+            <h2>{{ note.title }}</h2>
+            <div class="note-action">
+                <a href="/note/{{ note.id }}">просмотреть</a>
+                <a href="/edit-note/{{ note.id }}">изменить</a>
+                <a href="/delete-note/{{ note.id }}">удалить</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

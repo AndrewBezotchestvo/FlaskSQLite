@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ note.title }}{% endblock %}
+
+{% block content %}
+    <div class="note">
+            <h5>name</h5>
+            <h2>{{ note.title }}</h2>
+            <h5>текст</h5>
+            <p>{{ note.content }}</p>
+
+        <div class="note-action">
+                <a href="/">назад</a>
+                <a href="/edit-note/{{ note.id }}">изменить</a>
+                <a href="/delete-note/{{ note.id }}">удалить</a>
+        </div>
+    </div>
+{% endblock %}
