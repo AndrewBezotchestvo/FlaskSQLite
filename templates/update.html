@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Измнение{% endblock %}
+
+{% block content %}
+<h1>изменение заметки</h1>
+<form method="post">
+    {{ form.hidden_tag() }}
+
+    <div class="field">
+        {{ form.title.label }}
+        {{ form.title() }}
+    </div>
+
+    <div class="field">
+        {{ form.content.label }}
+        {{ form.content() }}
+    </div>
+
+    <div class="field">
+        {{ form.submit() }}
+    </div>
+
+</form>
+{% endblock %}

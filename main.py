@@ -34,10 +34,15 @@ def add():
         return redirect("/")
     return render_template("add.html", form=form)
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
+    if request.method == "POST":
+        search_request  = request.form.get("search-request")
+        notes = Note.query.filter(Note.title.like(f"%{search_request}%")).all()
+        return render_template("main.html", notes=notes, search_data=search_request)
+
     notes = Note.query.all() #считать все данные с БД
-    return render_template("main.html", notes=notes)
+    return render_template("main.html", notes=notes,  search_data="")
 
 # ---- Просмотр ----
 @app.route('/note/<int:id>',)
@@ -52,6 +57,18 @@ def delete_note(id):
     db.session.delete(note)  #удалить заметку
     db.session.commit() #сохранить изменения
     return redirect("/") # вернуться на главную
+
+# ---- Изменение ----
+@app.route('/edit-note/<int:id>', methods=['GET', 'POST'])
+def edit_note(id):
+    note = Note.query.get(id)
+    form = NoteForm(obj=note) #obj=note передать объект в форму
+    if form.validate_on_submit(): #условие что данные были отправленны
+        note.title = form.title.data
+        note.content = form.content.data
+        db.session.commit()
+        return redirect("/")
+    return render_template("update.html", form=form)
 
 if __name__ == '__main__':
     with app.app_context(): #открытие всех файлов приложения

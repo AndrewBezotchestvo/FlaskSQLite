@@ -3,6 +3,15 @@
 {% block title %}Главная{% endblock %}
 
 {% block content %}
+
+<div class="field">
+    <form method="POST">
+        <label for="search-request">поиск по названию</label>
+        <input id="search-request" name="search-request" type="text" value="{{ search_data }}">
+        <button type="submit">найти</button>
+    </form>
+</div>
+
 <div class="notes">
     {% for note in notes %}
         <div class="note">
